@@ -1,7 +1,10 @@
 var RuleEngine = require('node-rules');
 
 // rules definition
-var rules = [{
+// ****  RULES 1 ****
+var rules1 = [
+
+    {
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -11,6 +14,7 @@ var rules = [{
         "consequence": function(R) {
             console.log("rule 1");
             this.result = "Discharge the patient if sure of the dose ingested";
+            this.contenue = false;
             R.stop();
         }
     },
@@ -23,9 +27,8 @@ var rules = [{
         },
         "consequence": function(R) {
             console.log("rule 2");
-            this.taken = true;
-            this.unknown = true; // INPUT
-            R.next();
+            this.contenue = true;
+            R.stop();
         }
     },
     {
@@ -33,11 +36,12 @@ var rules = [{
         "priority": 1,
         "on": true,
         "condition": function(R) {
-            R.when(this.single && !this.risk && (this.dose_parac < 150 || this.unknown));
+            R.when(this.single && !this.risk && this.dose_parac < 150);
         },
         "consequence": function(R) {
             console.log("rule 3");
             this.result = "Discharge the patient if sure of the dose ingested";
+            this.contenue = false;
             R.stop();
         }
     },
@@ -50,11 +54,14 @@ var rules = [{
         },
         "consequence": function(R) {
             console.log("rule 4");
-            this.taken = true;
-            R.next();
+            this.contenue = true;
+            R.stop();
         }
     },
-    {
+
+];
+// ****  RULES 2 ****
+var rules2 = [{
         "name": "rule 5",
         "priority": 1,
         "on": true,
@@ -123,10 +130,10 @@ var rules = [{
             R.stop();
         }
     },
-
 ];
 
 // export the variable
 module.exports = {
-    rules: rules
+    rules1: rules1,
+    rules2: rules2,
 }
