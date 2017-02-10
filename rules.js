@@ -14,7 +14,7 @@ var rules1 = [
         "consequence": function(R) {
             console.log("rule 1");
             this.result = "Discharge the patient if sure of the dose ingested";
-            this.contenue = false;
+            this.continue = false;
             R.stop();
         }
     },
@@ -27,7 +27,7 @@ var rules1 = [
         },
         "consequence": function(R) {
             console.log("rule 2");
-            this.contenue = true;
+            this.continue = true;
             R.stop();
         }
     },
@@ -41,7 +41,7 @@ var rules1 = [
         "consequence": function(R) {
             console.log("rule 3");
             this.result = "Discharge the patient if sure of the dose ingested";
-            this.contenue = false;
+            this.continue = false;
             R.stop();
         }
     },
@@ -54,7 +54,7 @@ var rules1 = [
         },
         "consequence": function(R) {
             console.log("rule 4");
-            this.contenue = true;
+            this.continue = true;
             R.stop();
         }
     },
@@ -62,78 +62,63 @@ var rules1 = [
 ];
 // ****  RULES 2 ****
 var rules2 = [{
-        "name": "rule 5",
-        "priority": 1,
-        "on": true,
-        "condition": function(R) {
-            R.when(this.taken && this.unknown);
-        },
-        "consequence": function(R) {
-            console.log("rule 5");
-            console.log("Start treatment with N-acetylcysteine. See Treatment Box for doses.");
-            console.log("Take blood for baseline INR, LFTs, creatinine and venous bicarbonate (if bicarbonate abnormal then check arterial blood gases)");
-            this.abnormal = false; // INPUT
-            R.next();
-        }
+    "name": "rule 1",
+    "priority": 1,
+    "on": true,
+    "condition": function(R) {
+        R.when(this.continue);
     },
-    {
-        "name": "rule 6",
+    "consequence": function(R) {
+        console.log("rule 1");
+        if (this.taken < 1) {
+            this.result += "50 g charcoal orally (1 g/kg bodyweight in children)\n";
+        }
+        if (this.taken < 1 || (this.taken >= 1 && this.taken < 4)) {
+            this.result += "Wait until 4 hours post- ingestion\n";
+        }
+        if (this.taken < 1 || (this.taken >= 1 && this.taken < 4) || (this.taken >= 4 && this.taken < 8)) {
+            this.result += "Take blood for paracetamol level\n";
+            this.level_available = true;
+        }
+        R.stop();
+    }
+}];
+
+// ****  RULES 3 ****
+var rules3 = [{
+        "name": "rule 1",
         "priority": 1,
         "on": true,
         "condition": function(R) {
-            R.when(this.abnormal);
+            R.when(this.level_available);
         },
         "consequence": function(R) {
-            console.log("rule 6");
-            this.result = "Call National Poisons Information Service";
+            this.result = "Check paracetamol level result and plot on the treatment nomogram\n";
+            this.result += "DIAGRAMME";
             R.stop();
         }
     },
+
     {
-        "name": "rule 7",
+        "name": "rule 2",
         "priority": 1,
         "on": true,
         "condition": function(R) {
-            R.when(!this.abnormal);
+            R.when(!this.level_available);
         },
         "consequence": function(R) {
-            console.log("rule 7");
-            console.log("Start treatment with i.v. N-acetylcysteine See treatment box for doses");
-            console.log("On completion of N-acetylcysteine recheck INR, creatinine and venous bicarbonate (if bicarbonate abnormal then check arterial blood gases)");
-            this.symptomatic_abnormal = true; // INPUT
-            R.next();
-        }
-    },
-    {
-        "name": "rule 8",
-        "priority": 1,
-        "on": true,
-        "condition": function(R) {
-            R.when(this.symptomatic_abnormal);
-        },
-        "consequence": function(R) {
-            console.log("rule 8");
-            this.result = "Continue with maintenance N-acetylcysteine at a dose of 150 mg/kg over 24 hours 38 39 and call National Poisons Information Service";
+            this.result += "Start treatment with i.v. N-acetylcysteine See treatment box for doses\n";
+            this.result += "Check paracetamol level result and plot on the treatment nomogram\n";
+            this.result += "DIAGRAMME";
             R.stop();
         }
     },
-    {
-        "name": "rule 9",
-        "priority": 1,
-        "on": true,
-        "condition": function(R) {
-            R.when(!this.symptomatic_abnormal);
-        },
-        "consequence": function(R) {
-            console.log("rule 9");
-            this.result = "Discharge the patient";
-            R.stop();
-        }
-    },
+
 ];
 
 // export the variable
 module.exports = {
     rules1: rules1,
     rules2: rules2,
+    rules3: rules3,
 }
