@@ -3,7 +3,6 @@ var RuleEngine = require('node-rules');
 // rules definition
 // ****  RULES 1 : single overdose ****
 var rules1 = [
-
     {
         "name": "rule 1",
         "priority": 1,
@@ -145,8 +144,7 @@ var rules4 = [{
 ];
 
 // ****  RULES 5 : traitement when (sympomatique_abdonormal) ****
-var rules5 = [
-    {
+var rules5 = [{
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -173,8 +171,7 @@ var rules5 = [
 ];
 
 // ****  RULES 6 : when taken is unknown ****
-var rules6 = [
-    {
+var rules6 = [{
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -191,8 +188,7 @@ var rules6 = [
 ];
 
 // ****  RULES 7 : traitment when is not (test_abnormal)****
-var rules7 = [
-    {
+var rules7 = [{
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -220,26 +216,23 @@ var rules7 = [
 ];
 
 // ****  RULES 8 : when taken in 8-24 ****
-rules8 = [
-    {
-        "name": "rule 1",
-        "priority": 1,
-        "on": true,
-        "condition": function(R) {
-            R.when(this.taken >= 8 && this.taken < 24);
-        },
-        "consequence": function(R) {
-            this.result += "Start treatment with i.v. N-acetylcysteine See treatment box for doses\n";
-            this.result += "Take blood for paracetamol level, INR, LFTs, creatinine and venous bicarbonate (if bicarbonate abnormal then check arterial blood gases)\n";
-            this.result += "Check paracetamol level result and plot on the treatment nomogram";
-            R.stop();
-        }
+var rules8 = [{
+    "name": "rule 1",
+    "priority": 1,
+    "on": true,
+    "condition": function(R) {
+        R.when(this.taken >= 8 && this.taken < 24);
+    },
+    "consequence": function(R) {
+        this.result += "Start treatment with i.v. N-acetylcysteine See treatment box for doses\n";
+        this.result += "Take blood for paracetamol level, INR, LFTs, creatinine and venous bicarbonate (if bicarbonate abnormal then check arterial blood gases)\n";
+        this.result += "Check paracetamol level result and plot on the treatment nomogram";
+        R.stop();
     }
-];
+}];
 
 // ****  RULES 9 : traitment when (paracetamol_level) ****
-rules9 = [
-    {
+var rules9 = [{
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -267,8 +260,7 @@ rules9 = [
 ];
 
 // ****  RULES 10 : traitment when (lab_text_abnormal) ****
-rules10 = [
-    {
+var rules10 = [{
         "name": "rule 1",
         "priority": 1,
         "on": true,
@@ -294,7 +286,106 @@ rules10 = [
         }
     }
 ];
+// ****  RULES 11 : when taken in > 24 ****
+var rules11 = [{
+    "name": "rule 1",
+    "priority": 1,
+    "on": true,
+    "condition": function(R) {
+        R.when(this.taken >= 24);
+    },
+    "consequence": function(R) {
+        this.result = "Take blood for paracetamol level, INR, LFTs, creatinine and venous bicarbonate (if bicarbonate abnormal then check arterial blood gases)";
+        R.stop();
+    }
+}];
 
+// ****  RULES 12 : traitment when (symptomatique_abnormal) ****
+var rules12 = [{
+        "name": "rule 1",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(this.symptomatique_abnormal);
+        },
+        "consequence": function(R) {
+            this.result = "Start treatment with i.v. N-acetylcysteine (see treatment box for doses), if not already started. Call National Poisons Information Service";
+            R.stop();
+        }
+    },
+    {
+        "name": "rule 2",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(!this.symptomatique_abnormal);
+        },
+        "consequence": function(R) {
+            this.result = "Discharge the patient";
+            R.stop();
+        }
+    },
+
+];
+
+// ****  RULES 13 : staggered overdose ****
+var rules13 = [
+    {
+        "name": "rule 1",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(!this.single && this.risk && this.dose_parac < 75);
+        },
+        "consequence": function(R) {
+            console.log("rule 1");
+            this.result = "Discharge the patient if sure of the dose ingested";
+            this.continue = false;
+            R.stop();
+        }
+    },
+    {
+        "name": "rule 2",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(!this.single && this.risk && this.dose_parac >= 75);
+        },
+        "consequence": function(R) {
+            console.log("rule 1");
+            this.result = "Call National Poisons Information Service";
+            this.continue = false;
+            R.stop();
+        }
+    },
+    {
+        "name": "rule 3",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(!this.single && !this.risk && this.dose_parac < 150);
+        },
+        "consequence": function(R) {
+            console.log("rule 1");
+            this.result = "Discharge the patient if sure of the dose ingested";
+            this.continue = false;
+            R.stop();
+        }
+    },
+    {
+        "name": "rule 4",
+        "priority": 1,
+        "on": true,
+        "condition": function(R) {
+            R.when(!this.single && !this.risk && this.dose_parac >= 150);
+        },
+        "consequence": function(R) {
+            console.log("rule 1");
+            this.continue = true;
+            R.stop();
+        }
+    }
+];
 // export the variable
 module.exports = {
     rules1: rules1,
@@ -304,4 +395,10 @@ module.exports = {
     rules5: rules5,
     rules6: rules6,
     rules7: rules7,
+    rules8: rules8,
+    rules9: rules9,
+    rules10: rules10,
+    rules11: rules11,
+    rules12: rules12,
+    rules13: rules13,
 }
