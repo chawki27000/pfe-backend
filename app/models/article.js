@@ -1,5 +1,3 @@
-// Example model
-
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
@@ -15,4 +13,3 @@ ArticleSchema.virtual('date')
   });
 
 mongoose.model('Article', ArticleSchema);
-

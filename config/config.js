@@ -6,10 +6,10 @@ var config = {
   development: {
     root: rootPath,
     app: {
-      name: 'expert-system-v3'
+      name: 'alpha-project'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/expert-system-v3-development'
+    db: 'mongodb://localhost:27017/alpha'
   },
 
   test: {
