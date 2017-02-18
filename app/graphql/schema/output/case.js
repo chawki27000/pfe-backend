@@ -13,7 +13,7 @@ import {
 } from './drug'
 
 const SignType = new GraphQLObjectType({
-    name: 'Sign',
+    name: 'allSign',
     fields: {
         types: {
             type: GraphQLString
@@ -28,7 +28,7 @@ const SignType = new GraphQLObjectType({
 });
 
 const DrugsType = new GraphQLObjectType({
-    name: 'Drugs',
+    name: 'allDrugs',
     fields: {
         id: {
             type: new GraphQLNonNull(GraphQLID)
@@ -40,7 +40,7 @@ const DrugsType = new GraphQLObjectType({
 });
 
 const TakenType = new GraphQLObjectType({
-    name: 'Taken',
+    name: 'allTaken',
     fields: {
         hour: {
             type: GraphQLInt
@@ -52,7 +52,7 @@ const TakenType = new GraphQLObjectType({
 });
 
 export default new GraphQLObjectType({
-    name: 'Case',
+    name: 'allCase',
     fields: {
         _id: {
             type: new GraphQLNonNull(GraphQLID)

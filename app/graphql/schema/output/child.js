@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 const AgeType = new GraphQLObjectType({
-    name: 'Age',
+    name: 'allAge',
     fields: {
         num:{
             type: GraphQLInt
@@ -20,16 +20,16 @@ const AgeType = new GraphQLObjectType({
 });
 
 export default new GraphQLObjectType({
-    name: 'Child',
+    name: 'allChild',
     fields: {
         _id: {
             type: new GraphQLNonNull(GraphQLID)
         },
         user: {
             type: new GraphQLNonNull(GraphQLID)
-        }
+        },
         age: {
-            type: new GraphQLObjectType(AgeType)
+            type: AgeType
         },
         weight: {
             type: GraphQLFloat

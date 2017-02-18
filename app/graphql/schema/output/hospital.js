@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 const CoordType = new GraphQLObjectType({
-    name: 'Coordinates',
+    name: 'allCoordinates',
     fields: {
         lat: {
             type: GraphQLFloat
@@ -20,7 +20,7 @@ const CoordType = new GraphQLObjectType({
 })
 
 export default new GraphQLObjectType({
-    name: 'Hospital',
+    name: 'allHospital',
     fields: {
         _id: {
             type: new GraphQLNonNull(GraphQLID)
@@ -32,7 +32,7 @@ export default new GraphQLObjectType({
             type: GraphQLString
         },
         coordinates: {
-            type: new GraphQLObjectType(CoordType)
+            type: CoordType
         }
     }
 })

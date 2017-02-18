@@ -8,7 +8,7 @@ import {
 } from 'graphql';
 
 export default new GraphQLObjectType({
-    name: 'Protocole',
+    name: 'allProtocole',
     fields: {
         _id: {
             type: new GraphQLNonNull(GraphQLID)
