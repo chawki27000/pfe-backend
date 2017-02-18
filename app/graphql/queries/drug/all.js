@@ -5,7 +5,7 @@ import {
   GraphQLString
 } from 'graphql';
 
-import DrugType from '../../schema/drug';
+import DrugType from '../../schema/output/drug';
 
 import Drug from '../../../models/drug';
 

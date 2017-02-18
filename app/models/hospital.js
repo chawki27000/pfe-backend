@@ -4,10 +4,10 @@ var mongoose = require('mongoose'),
 var hospitalSchema = new Schema({
     name : String,
     address : String,
-    coordinates : [{
+    coordinates : {
         lat : Number,
         lon : Number
-    }]
+    }
 });
 
 module.exports = mongoose.model('Hospital', hospitalSchema);

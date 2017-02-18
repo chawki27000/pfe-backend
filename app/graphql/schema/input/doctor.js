@@ -1,5 +1,5 @@
 import {
-  GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLInt,
   GraphQLFloat,
@@ -7,12 +7,9 @@ import {
   GraphQLID
 } from 'graphql';
 
-export default new GraphQLObjectType({
+export default new GraphQLInputObjectType({
     name: 'Doctor',
     fields: {
-        _id: {
-            type: new GraphQLNonNull(GraphQLID)
-        },
         user: {
             type: new GraphQLNonNull(GraphQLID)
         },

@@ -1,5 +1,5 @@
 import {
-  GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLNonNull,
   GraphQLInt,
   GraphQLFloat,
@@ -7,29 +7,26 @@ import {
   GraphQLID
 } from 'graphql';
 
-const AgeType = new GraphQLObjectType({
+const AgeType = new GraphQLInputObjectType({
     name: 'Age',
     fields: {
         num:{
             type: GraphQLInt
         },
         types:{
-            type: GraphQLInt
+            type: GraphQLString
         }
     }
 });
 
-export default new GraphQLObjectType({
+export default new GraphQLInputObjectType({
     name: 'Child',
     fields: {
-        _id: {
-            type: new GraphQLNonNull(GraphQLID)
-        },
         user: {
             type: new GraphQLNonNull(GraphQLID)
-        }
+        },
         age: {
-            type: new GraphQLObjectType(AgeType)
+            type: AgeType
         },
         weight: {
             type: GraphQLFloat

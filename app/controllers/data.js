@@ -2,7 +2,7 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose');
 
-var Drug = require('../models/drug');
+var Child = require('../models/child');
 
 // define default router
 module.exports = function (app) {
@@ -11,11 +11,16 @@ module.exports = function (app) {
 
 // route to insert a drug element in DB
 router.get('/insert', function (req,res) {
-    var drug = new Drug({
-        category: 'Psychotrope',
-        name: 'valium',
-        format: 'pilule',
-        masse: 100
+    var drug = new Child({
+        user: "58a873fd64bdd75525498308",
+        age: {
+            num: 18,
+            types: "year"
+        },
+        lastName: 'bar',
+        school_mother: "3 AS",
+        school_father: "licence",
+        address_parent: "avenue 1, rue inconnue",
     });
 
     drug.save(function (err, drug) {

@@ -30,10 +30,22 @@ const SignType = new GraphQLObjectType({
 const DrugsType = new GraphQLObjectType({
     name: 'Drugs',
     fields: {
-        _id: {
+        id: {
             type: new GraphQLNonNull(GraphQLID)
         },
         quantity: {
+            type: GraphQLInt
+        }
+    }
+});
+
+const TakenType = new GraphQLObjectType({
+    name: 'Taken',
+    fields: {
+        hour: {
+            type: GraphQLInt
+        },
+        minute: {
             type: GraphQLInt
         }
     }
@@ -52,12 +64,7 @@ export default new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLID)
         },
         taken_hour: {
-            hour: {
-                type: GraphQLInt
-            },
-            minute: {
-                type: GraphQLInt
-            }
+            type: TakenType
         },
         taken_place: {
             type: GraphQLString

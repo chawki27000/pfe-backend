@@ -3,10 +3,10 @@ var mongoose = require('mongoose'),
 
 var childSchema = new Schema({
     user: Schema.Types.ObjectId,
-    age: [{
+    age: {
         num: Number,
         types: String
-    }],
+    },
     weight: Number,
     school_mother: String,
     school_father: String,
@@ -14,4 +14,4 @@ var childSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Case', childSchema);
+module.exports = mongoose.model('Child', childSchema);
