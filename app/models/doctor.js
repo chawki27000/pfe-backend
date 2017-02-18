@@ -7,3 +7,5 @@ var doctorSchema = new Schema({
     service : String,
     work: Schema.Types.ObjectId
 });
+
+module.exports = mongoose.model('Doctor', doctorSchema);

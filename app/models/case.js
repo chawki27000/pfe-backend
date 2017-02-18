@@ -27,8 +27,8 @@ var caseSchema = new Schema({
         max: 15
     },
     diagnostic: String,
-    createdAt: Schema.Types.Date
+    createdAt: { type: Date, default: Date.now }
 
 });
 
-mongoose.model('Case', caseSchema);
+module.exports = mongoose.model('Case', caseSchema);

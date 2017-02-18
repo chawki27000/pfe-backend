@@ -9,3 +9,5 @@ var hospitalSchema = new Schema({
         lon : Number
     }]
 });
+
+module.exports = mongoose.model('Hospital', hospitalSchema);

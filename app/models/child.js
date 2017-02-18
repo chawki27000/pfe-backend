@@ -11,5 +11,7 @@ var childSchema = new Schema({
     school_mother: String,
     school_father: String,
     address_parent: String,
-    createdAt: Schema.Types.Date,
+    createdAt: { type: Date, default: Date.now },
 });
+
+module.exports = mongoose.model('Case', childSchema);
