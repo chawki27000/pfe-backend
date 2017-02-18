@@ -1,18 +1,30 @@
-const {
-    graphql
-} = require('graphql');
+import {
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLNonNull,
+    GraphQLList,
+    GraphQLString,
+    GraphQLInt,
+    GraphQLID
+} from 'graphql';
 
-const readline = require('readline');
-const mySchema = require('./schema/main');
+import DrugType from './schema/drug';
 
-const rli = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
+import Drug from '../models/drug';
+
+
+const queryType = new GraphQLObjectType({
+    name: 'RootQuery',
+    fields: {
+        drug: {
+            type: new GraphQLList(DrugType),
+            description: 'A list of drug',
+            resolve: (_, args) =>
+                Drug.find()
+        }
+    }
 });
 
-rli.question('Client Request: ', inputQuery => {
-    graphql(mySchema, inputQuery).then(result => {
-        console.log('Server Answer :', result.data);
-    });
-    rli.close();
+export default new GraphQLSchema({
+    query: queryType
 });

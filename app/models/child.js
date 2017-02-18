@@ -10,5 +10,6 @@ var childSchema = new Schema({
     weight: Number,
     school_mother: String,
     school_father: String,
-    address_parent: String
+    address_parent: String,
+    createdAt: Schema.Types.Date,
 });

@@ -27,6 +27,7 @@ var caseSchema = new Schema({
         max: 15
     },
     diagnostic: String,
+    createdAt: Schema.Types.Date
 
 });
 
