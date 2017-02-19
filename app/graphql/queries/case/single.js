@@ -5,18 +5,18 @@ import {
   GraphQLString
 } from 'graphql';
 
-import DrugType from '../../schema/output/drug';
+import CaseType from '../../schema/output/case';
 
-import Drug from '../../../models/drug';
+import Case from '../../../models/case';
 
 export default {
-    type: new GraphQLList(DrugType),
-    description: 'A list of drug with projection',
+    type: new GraphQLList(CaseType),
+    description: 'A case by ID',
     args: {
-        name: {
+        id: {
             type: GraphQLString,
         }
     },
     resolve: (_, args) =>
-        Drug.find({name: args.name})
+        Case.find({_id: args.id})
 }

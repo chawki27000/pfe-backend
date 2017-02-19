@@ -1,7 +1,7 @@
-// import hospital from './single';
+import hospital from './single';
 import hospitals from './all';
 
 export default {
-    // hospital,
+    hospital,
     hospitals,
 }

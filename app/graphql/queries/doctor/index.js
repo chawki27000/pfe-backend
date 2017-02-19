@@ -1,7 +1,7 @@
-// import doctor from './single';
+import doctor from './single';
 import doctors from './all';
 
 export default {
-    // doctor,
+    doctor,
     doctors,
 }

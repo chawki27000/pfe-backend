@@ -1,7 +1,7 @@
-// import user from './single';
+import user from './single';
 import users from './all';
 
 export default {
-    // user,
+    user,
     users,
 }

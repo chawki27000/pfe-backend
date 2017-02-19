@@ -1,7 +1,7 @@
-// import child from './single';
+import child from './single';
 import childs from './all';
 
 export default {
-    // child,
+    child,
     childs,
 }
