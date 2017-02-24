@@ -20,7 +20,7 @@ export default {
     const news = await DoctorModel.save();
 
     if (!news) {
-      throw new Error('Error adding new comment');
+      throw new Error('Error adding new doctor');
     }
     return true;
   }

@@ -20,7 +20,7 @@ export default {
     const news = await UserModel.save();
 
     if (!news) {
-      throw new Error('Error adding new comment');
+      throw new Error('Error adding new user');
     }
     return true;
   }

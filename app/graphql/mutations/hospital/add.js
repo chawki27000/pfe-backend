@@ -20,7 +20,7 @@ export default {
     const news = await HospitalModel.save();
 
     if (!news) {
-      throw new Error('Error adding new comment');
+      throw new Error('Error adding new hospital');
     }
     return true;
   }

@@ -11,6 +11,9 @@ import {
 export default new GraphQLInputObjectType({
     name: 'User',
     fields: {
+        username:{
+            type: GraphQLString
+        },
         email: {
             type: GraphQLString
         },

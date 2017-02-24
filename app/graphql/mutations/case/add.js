@@ -20,7 +20,7 @@ export default {
     const news = await CaseModel.save();
 
     if (!news) {
-      throw new Error('Error adding new comment');
+      throw new Error('Error adding new case');
     }
     return true;
   }
