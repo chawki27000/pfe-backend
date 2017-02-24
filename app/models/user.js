@@ -4,12 +4,18 @@ var mongoose = require('mongoose'),
 var userSchema = new Schema({
     username:{
         type: String,
+        unique: true,
         required: true
     },
     email: String,
     firstName: String,
     lastName: String,
-    passwordHash: String,
-    passwordSalt: String
+    password: String,
+    role: {
+        type: String,
+        enum: ['Doctor', 'Patient', 'Admin'],
+        default: 'Doctor'
+    }
+
 });
 module.exports = mongoose.model('User', userSchema);

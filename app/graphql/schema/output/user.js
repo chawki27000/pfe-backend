@@ -26,11 +26,11 @@ export default new GraphQLObjectType({
         lastName: {
             type: GraphQLString
         },
-        passwordHash: {
+        password: {
             type: GraphQLString
         },
-        passwordSalt: {
+        role: {
             type: GraphQLString
-        },
+        }
     }
 })
