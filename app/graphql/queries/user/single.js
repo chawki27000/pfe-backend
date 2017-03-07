@@ -12,12 +12,12 @@ import User from '../../../models/user';
 
 export default {
     type: new GraphQLList(UserType),
-    description: 'A user by EMAIL',
+    description: 'A user by Username',
     args: {
-        email: {
+        username: {
             type: GraphQLString,
         }
     },
     resolve: (_, args) =>
-        User.find({email: args.email})
+        User.find({username: args.username})
 }
