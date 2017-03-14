@@ -26,7 +26,7 @@ export default new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLID)
         },
         user: {
-            type: new GraphQLNonNull(GraphQLID)
+            type: GraphQLID
         },
         age: {
             type: AgeType

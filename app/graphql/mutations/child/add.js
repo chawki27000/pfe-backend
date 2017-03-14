@@ -20,8 +20,12 @@ export default {
     const news = await ChildModel.save();
 
     if (!news) {
-      throw new Error('Error adding new child');
+      // throw new Error('Error adding new child');
+      return {'success': false}
     }
-    return true;
+    return {
+      'success': true,
+      'data': news
+    };
   }
 };

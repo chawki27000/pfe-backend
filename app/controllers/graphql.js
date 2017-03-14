@@ -8,7 +8,8 @@ var {
     buildSchema
 } = require('graphql');
 
-
+// Auth
+var auth = require('../authentication/auth');
 
 import mySchema from '../graphql/index';
 
@@ -18,7 +19,8 @@ module.exports = function(app) {
     app.use('/graphql/', router);
 };
 
-
+// Protect route
+// router.use(auth.authFunct);
 
 router.use('/', cors(), graphqlHTTP({
     schema: mySchema,

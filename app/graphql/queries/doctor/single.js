@@ -19,5 +19,5 @@ export default {
         }
     },
     resolve: (_, args) =>
-        Doctor.find({_id: args.id})
+        Doctor.find({user: args.id})
 }

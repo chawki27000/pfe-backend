@@ -23,7 +23,7 @@ export default new GraphQLInputObjectType({
     name: 'Child',
     fields: {
         user: {
-            type: new GraphQLNonNull(GraphQLID)
+            type: GraphQLID
         },
         age: {
             type: AgeType

@@ -14,10 +14,10 @@ export default {
     type: new GraphQLList(HospitalType),
     description: 'A hospital by NAME',
     args: {
-        name: {
+        id: {
             type: GraphQLString,
         }
     },
     resolve: (_, args) =>
-        Hospital.find({name: args.name})
+        Hospital.find({_id: args.id})
 }

@@ -32,6 +32,11 @@ module.exports = function(app, config) {
     require(controller)(app);
   });
 
+  var api = glob.sync(config.root + '/app/api/*.js');
+  api.forEach(function (controller) {
+    require(controller)(app);
+  });
+
   app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
