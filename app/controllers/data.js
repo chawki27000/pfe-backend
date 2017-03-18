@@ -57,24 +57,45 @@ router.post('/login', function(req, res) {
         // test if user exist in database
         else if (user) {
             // check if password matches
-            if (user.password != req.body.password) {
-                res.json({
-                    success: false,
-                    message: 'Authentication failed. Wrong password.'
-                });
-            } else {
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if(!isMatch){
+                    res.json({
+                        success: false,
+                        message: 'Authentication failed. Wrong password.'
+                    });
+                }
+                else {
+                    // if user is found and password is right
+                    // create a token
+                    var token = jwt.sign(user, secret, {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+
+                    // return the information including token as JSON
+                    res.json({
+                        success: true,
+                        token: token
+                    });
+                }
+            })
+            // if (user.password != req.body.password) {
+                // res.json({
+                //     success: false,
+                //     message: 'Authentication failed. Wrong password.'
+                // });
+            // } else {
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, secret, {
-                    expiresIn: 86400 // expires in 24 hours
-                });
-
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    token: token
-                });
-            }
+                // var token = jwt.sign(user, secret, {
+                //     expiresIn: 86400 // expires in 24 hours
+                // });
+                //
+                // // return the information including token as JSON
+                // res.json({
+                //     success: true,
+                //     token: token
+                // });
+            // }
         }
     });
 })
