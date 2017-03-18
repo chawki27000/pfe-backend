@@ -4,6 +4,7 @@ import {
 } from 'graphql';
 
 import ChildType from '../../schema/input/child';
+import ChildTypeOut from '../../schema/output/child';
 
 import Child from '../../../models/child';
 
@@ -20,12 +21,8 @@ export default {
     const news = await ChildModel.save();
 
     if (!news) {
-      // throw new Error('Error adding new child');
-      return {'success': false}
+      throw new Error('Error adding new child');
     }
-    return {
-      'success': true,
-      'data': news
-    };
+    return ChildModel
   }
 };

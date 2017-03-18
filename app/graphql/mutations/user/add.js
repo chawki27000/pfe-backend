@@ -4,11 +4,12 @@ import {
 } from 'graphql';
 
 import UserType from '../../schema/input/user';
+import UserTypeOut from '../../schema/output/user';
 
 import User from '../../../models/user';
 
 export default {
-  type: GraphQLBoolean,
+  type: UserTypeOut,
   args: {
     data: {
       name: 'data',
@@ -22,6 +23,6 @@ export default {
     if (!news) {
       throw new Error('Error adding new user');
     }
-    return true;
+    return UserModel;
   }
 };

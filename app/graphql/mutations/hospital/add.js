@@ -4,11 +4,12 @@ import {
 } from 'graphql';
 
 import HospitalType from '../../schema/input/hospital';
+import HospitalTypeOut from '../../schema/output/hospital';
 
 import Hospital from '../../../models/hospital';
 
 export default {
-  type: GraphQLBoolean,
+  type: HospitalTypeOut,
   args: {
     data: {
       name: 'data',
@@ -22,6 +23,6 @@ export default {
     if (!news) {
       throw new Error('Error adding new hospital');
     }
-    return true;
+    return HospitalModel;
   }
 };

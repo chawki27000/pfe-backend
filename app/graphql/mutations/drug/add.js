@@ -4,11 +4,12 @@ import {
 } from 'graphql';
 
 import DrugType from '../../schema/input/drug';
+import DrugTypeOut from '../../schema/output/drug';
 
 import Drug from '../../../models/drug';
 
 export default {
-  type: GraphQLBoolean,
+  type: DrugTypeOut,
   args: {
     data: {
       name: 'data',
@@ -22,6 +23,6 @@ export default {
     if (!news) {
       throw new Error('Error adding new drug');
     }
-    return true;
+    return DrugModel;
   }
 };

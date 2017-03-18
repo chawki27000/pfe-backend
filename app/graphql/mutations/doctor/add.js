@@ -4,11 +4,12 @@ import {
 } from 'graphql';
 
 import DoctorType from '../../schema/input/doctor';
+import DoctorTypeOut from '../../schema/output/doctor';
 
 import Doctor from '../../../models/doctor';
 
 export default {
-  type: GraphQLBoolean,
+  type: DoctorTypeOut,
   args: {
     data: {
       name: 'data',
@@ -22,6 +23,6 @@ export default {
     if (!news) {
       throw new Error('Error adding new doctor');
     }
-    return true;
+    return DoctorModel;
   }
 };
