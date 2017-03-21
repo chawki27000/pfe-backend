@@ -9,7 +9,7 @@ import ChildTypeOut from '../../schema/output/child';
 import Child from '../../../models/child';
 
 export default {
-  type: GraphQLBoolean,
+  type: ChildTypeOut,
   args: {
     data: {
       name: 'data',
