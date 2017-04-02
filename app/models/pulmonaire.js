@@ -10,7 +10,7 @@ var pulmonaireSchema = new Schema({
     fio2: Number,
     rythme: String,
     cyanose: Boolean,
-    sign_lutte: String,
+    sign_lutte: [String],
     sueur: Boolean,
     auscul_pleuro: {
         bruit: String,

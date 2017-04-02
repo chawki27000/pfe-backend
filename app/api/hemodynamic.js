@@ -22,6 +22,7 @@ router.post('/insert', function (req, res, next) {
         pouls: req.body.pouls,
         ta: req.body.ta,
         marbrure: req.body.marbrure,
+        trc: req.body.trc,
         extr_temp: req.body.extr_temp,
         temp: req.body.temp,
         turg_jugul: req.body.turg_jugul,

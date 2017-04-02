@@ -7,6 +7,7 @@ var hemodynamicSchema = new Schema({
     pouls: Number,
     ta: Number,
     marbrure: Boolean,
+    trc: Number,
     extr_temp: Boolean,
     temp: Number,
     turg_jugul: Boolean,

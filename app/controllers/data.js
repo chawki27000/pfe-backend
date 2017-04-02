@@ -74,28 +74,11 @@ router.post('/login', function(req, res) {
                     // return the information including token as JSON
                     res.json({
                         success: true,
+                        id: user._id,
                         token: token
                     });
                 }
             })
-            // if (user.password != req.body.password) {
-                // res.json({
-                //     success: false,
-                //     message: 'Authentication failed. Wrong password.'
-                // });
-            // } else {
-                // if user is found and password is right
-                // create a token
-                // var token = jwt.sign(user, secret, {
-                //     expiresIn: 86400 // expires in 24 hours
-                // });
-                //
-                // // return the information including token as JSON
-                // res.json({
-                //     success: true,
-                //     token: token
-                // });
-            // }
         }
     });
 })
