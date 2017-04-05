@@ -23,6 +23,9 @@ export default new GraphQLObjectType({
         },
         masse: {
             type: GraphQLInt
+        },
+        createdAt: {
+            type: GraphQLString
         }
     }
 });

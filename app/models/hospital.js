@@ -7,7 +7,8 @@ var hospitalSchema = new Schema({
     coordinates : {
         lat : Number,
         lon : Number
-    }
+    },
+    createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Hospital', hospitalSchema);

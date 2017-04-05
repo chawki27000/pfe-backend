@@ -34,6 +34,9 @@ export default new GraphQLObjectType({
         weight: {
             type: GraphQLFloat
         },
+        gender: {
+            type: GraphQLString
+        },
         school_mother: {
             type: GraphQLString
         },

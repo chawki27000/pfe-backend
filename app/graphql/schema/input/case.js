@@ -83,9 +83,6 @@ export default new GraphQLInputObjectType({
         },
         diagnostic: {
             type: GraphQLString
-        },
-        createdAt: {
-            type: GraphQLString
         }
     }
 });

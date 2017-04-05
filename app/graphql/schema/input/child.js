@@ -31,6 +31,9 @@ export default new GraphQLInputObjectType({
         weight: {
             type: GraphQLFloat
         },
+        gender: {
+            type: GraphQLString
+        },
         school_mother: {
             type: GraphQLString
         },
@@ -39,10 +42,6 @@ export default new GraphQLInputObjectType({
         },
         address_parent: {
             type: GraphQLString
-        },
-        createdAt: {
-            type: GraphQLString
         }
-
     }
 });

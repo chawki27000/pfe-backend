@@ -33,6 +33,9 @@ export default new GraphQLObjectType({
         },
         coordinates: {
             type: CoordType
+        },
+        createdAt: {
+            type: GraphQLString
         }
     }
 })

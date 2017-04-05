@@ -15,7 +15,8 @@ var hemodynamicSchema = new Schema({
     pres_vein: Number,
     diurese: String,
     auscu_card: String,
-    protocol: [{text: String}]
+    protocol: [{text: String}],
+    createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Hemodynamic', hemodynamicSchema);

@@ -2,17 +2,20 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose');
 
+var RuleEngine = require('node-rules');
+const rule = require('../expert_system/pulmonaire_rules');
+
 const Model = require('../models/pulmonaire');
 
 module.exports = function (app) {
     app.use('/v1/pulmonaire/', router);
-};
+}
 
 router.get('/', function (req, res, next) {
     res.json({
         'message': 'hello V1 API - Pleuro-pulmonaire'
-    });
-});
+    })
+})
 
 router.post('/insert', function (req, res, next) {
     //params extraction
@@ -41,7 +44,7 @@ router.post('/insert', function (req, res, next) {
         }
         res.json({
             'success': true,
-            
+
         })
     })
 })

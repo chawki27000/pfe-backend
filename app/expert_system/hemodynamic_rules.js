@@ -1,5 +1,3 @@
-var RuleEngine = require('node-rules');
-
 // ****  RULES 1 : frequence anomaly ****
 var rules1 = [{
         "name": "rule 1",
@@ -125,7 +123,7 @@ var rules2 = [
 ]
 
 // ****  RULES 3 : Temperature ****
-rules3 = [
+var rules3 = [
     {
         "name": "rule 1",
         "priority": 1,

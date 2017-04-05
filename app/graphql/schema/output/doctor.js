@@ -24,6 +24,9 @@ export default new GraphQLObjectType({
         },
         work: {
             type: new GraphQLNonNull(GraphQLID)
+        },
+        createdAt: {
+            type: GraphQLString
         }
     }
 })

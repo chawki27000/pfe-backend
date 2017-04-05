@@ -8,6 +8,11 @@ var childSchema = new Schema({
         types: String
     },
     weight: Number,
+    gender: {
+        type: String,
+        enum: ['Mal', 'Female'],
+        default: 'Mal'
+    },
     school_mother: String,
     school_father: String,
     address_parent: String,

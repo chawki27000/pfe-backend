@@ -31,6 +31,9 @@ export default new GraphQLObjectType({
         },
         role: {
             type: GraphQLString
+        },
+        createdAt: {
+            type: GraphQLString
         }
     }
 })

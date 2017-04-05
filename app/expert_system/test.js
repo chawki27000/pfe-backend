@@ -21,9 +21,9 @@ var R = new RuleEngine(rule.rules1)
 var R2 = new RuleEngine(rule.rules12)
 // var R3 = new RuleEngine(rule.rules3)
 
-// R.execute(fact, function(result) {
-//     console.log("Resulat 1 : "+result.result);
-// })
+R.execute(fact, function(result) {
+    console.log("Resulat 1 : "+result.result);
+})
 //
 // R2.execute(fact2, function(result) {
 //     console.log("Resulat 2 : "+result.result);

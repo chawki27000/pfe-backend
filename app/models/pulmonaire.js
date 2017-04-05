@@ -16,7 +16,8 @@ var pulmonaireSchema = new Schema({
         bruit: String,
         toux: String
     },
-    protocol: [{text: String}]
+    protocol: [{text: String}],
+    createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Pulmonaire', pulmonaireSchema);
