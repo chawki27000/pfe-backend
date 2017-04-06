@@ -49,7 +49,7 @@ router.post('/on', function (req, res, next) {
                         temp: hemo.temp
                     }
                 }, function (error, response, body) {
-                    res.json(body) // Expertise Hemodynamique
+                    res.send(body) // Expertise Hemodynamique
                 })
             })
         })

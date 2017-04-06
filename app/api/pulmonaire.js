@@ -44,7 +44,7 @@ router.post('/insert', function (req, res, next) {
         }
         res.json({
             'success': true,
-
+            'id': result._id
         })
     })
 })
