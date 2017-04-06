@@ -113,17 +113,19 @@ var rules2 = [{
     "priority": 1,
     "on": true,
     "condition": function(R) {
-        R.when(this.apml);
+        R.when(this.ampl);
     },
     "consequence": function(R) {
-        if (this.fr == "Polypnée" && this.apml == "2") {
+        if (this.fr == "Polypnée" && this.ampl == "2") {
             this.result = "Détresse respiratoire"
-        } else if (this.fr = "Bradypnée" && this.apml == "2") {
+        } else if (this.fr == "Bradypnée" && this.ampl == "2") {
             this.result = "Paralysie respiratoire"
         }
         R.stop();
     }
 }]
 
-// TODO : détresse respiratoire + signes de lutte
-// ****  RULES 3 :  ****
+module.exports = {
+    rules1: rules1,
+    rules2: rules2,
+}
