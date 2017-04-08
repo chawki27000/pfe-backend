@@ -96,7 +96,7 @@ router.post('/expert', function(req, res, next) {
             "ampl": req.body.ampl
         }
         R1.execute(fact1, (result) => {
-            tab.ampl = result.result
+            tab.resp = result.result
             res.json(tab)
         })
     })

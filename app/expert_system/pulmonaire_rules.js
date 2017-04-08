@@ -35,7 +35,7 @@ var rules1 = [{
             } else if (this.fr < 12) {
                 this.result = "Bradypnée"
             } else if (this.fr <= 20 && this.fr >= 12) {
-                this.result = "normal"
+                this.result = "Normal"
             }
             // TODO : absence de ventilation
             R.stop();
@@ -55,7 +55,7 @@ var rules1 = [{
             } else if (this.fr < 20) {
                 this.result = "Bradypnée"
             } else if (this.fr <= 30 && this.fr >= 20) {
-                this.result = "normal"
+                this.result = "Normal"
             }
             // TODO : absence de ventilation
             R.stop();
@@ -75,7 +75,7 @@ var rules1 = [{
             } else if (this.fr < 40) {
                 this.result = "Bradypnée"
             } else if (this.fr <= 60 && this.fr >= 40) {
-                this.result = "normal"
+                this.result = "Normal"
             }
             // TODO : absence de ventilation
             R.stop();
@@ -95,7 +95,7 @@ var rules1 = [{
             } else if (this.fr < 30) {
                 this.result = "Bradypnée"
             } else if (this.fr <= 60 && this.fr >= 30) {
-                this.result = "normal"
+                this.result = "Normal"
             }
             // TODO : absence de ventilation
             R.stop();
@@ -120,6 +120,9 @@ var rules2 = [{
             this.result = "Détresse respiratoire"
         } else if (this.fr == "Bradypnée" && this.ampl == "2") {
             this.result = "Paralysie respiratoire"
+        }
+        else {
+            this.result = false
         }
         R.stop();
     }

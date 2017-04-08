@@ -33,7 +33,7 @@ var rules1 = [{
             } else if (this.fc < 50) {
                 this.result = "Bradycardie"
             } else {
-                this.result = "normal"
+                this.result = "Normal"
             }
             R.stop();
         }
@@ -51,7 +51,7 @@ var rules1 = [{
             } else if (this.fc < 70) {
                 this.result = "Bradycardie"
             } else {
-                this.result = "normal"
+                this.result = "Normal"
             }
             R.stop();
         }
@@ -69,7 +69,7 @@ var rules1 = [{
             } else if (this.fc < 100) {
                 this.result = "Bradycardie"
             } else {
-                this.result = "normal"
+                this.result = "Normal"
             }
             R.stop();
         }
@@ -87,7 +87,7 @@ var rules1 = [{
             } else if (this.fc < 120) {
                 this.result = "Bradycardie"
             } else {
-                this.result = "normal"
+                this.result = "Normal"
             }
             R.stop();
         }
