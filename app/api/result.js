@@ -15,6 +15,20 @@ router.get('/', function(req, res, next) {
     })
 })
 
+router.get('/all', function(req, res, next) {
+    Model.find({}, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
+
 router.post('/insert', function(req, res, next) {
     //params extraction
     const params = {
@@ -45,6 +59,35 @@ router.post('/insert', function(req, res, next) {
         res.json({
             'success': true,
             'id': result._id
+        })
+    })
+})
+
+router.get('/query/:id', function (req, res, next) {
+    Model.find({child: req.params.id}, function (err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+})
+
+router.get('/update/:id/:param', function (req, res, next) {
+    Model.findByIdAndUpdate(req.params.id, function (err, result) {
+        if (err) {
+            res.json({'success': false})
+        }
+        //params extraction and update the model
+        result.feedback = req.params.param
+
+        // Save it
+        result.save(function (err, user) {
+            res.json({'success': true})
         })
     })
 })

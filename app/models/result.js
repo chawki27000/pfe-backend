@@ -17,6 +17,7 @@ var resultSchema = new Schema({
         resp: String,
         ampl: String
     },
+    feedback: String,
     createdAt: { type: Date, default: Date.now }
 });
 
