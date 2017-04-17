@@ -4,8 +4,6 @@ var express = require('express'),
 
 const Child = require('../models/child');
 
-
-
 module.exports = function (app) {
     app.use('/v1/child/', router);
 };
@@ -16,6 +14,34 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/all', function(req, res, next) {
+    Child.find({}, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
+
+
+router.get('/query/:id', function(req, res, next) {
+    Child.findById(req.params.id, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
 router.post('/insert', function (req, res, next) {
     //params extraction
     const params = {

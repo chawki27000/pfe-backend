@@ -77,13 +77,27 @@ router.get('/query/:id', function (req, res, next) {
     })
 })
 
-router.get('/update/:id/:param', function (req, res, next) {
-    Model.findByIdAndUpdate(req.params.id, function (err, result) {
+router.get('/query/id/:id', function (req, res, next) {
+    Model.findById(req.params.id, function (err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+})
+
+router.post('/update', function (req, res, next) {
+    Model.findById(req.body.id, function (err, result) {
         if (err) {
             res.json({'success': false})
         }
         //params extraction and update the model
-        result.feedback = req.params.param
+        result.feedback = req.body.feedback
 
         // Save it
         result.save(function (err, user) {
