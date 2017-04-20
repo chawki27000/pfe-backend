@@ -98,6 +98,7 @@ router.post('/update', function (req, res, next) {
         }
         //params extraction and update the model
         result.feedback = req.body.feedback
+        result.comment = req.body.comment
 
         // Save it
         result.save(function (err, user) {

@@ -7,12 +7,11 @@ var rules1 = [{
             R.when(this.age && this.types);
         },
         "consequence": function(R) {
-
-            if (this.types == "year" && this.age > 7) {
+            if (this.types == "years" && this.age > 7) {
                 this.grand = true
-            } else if (this.types == "year" && this.age <= 7 && this.age > 3) {
+            } else if (this.types == "years" && this.age <= 7 && this.age > 3) {
                 this.enfant = true
-            } else if ((this.types == "year" && this.age <= 3 && this.age >= 1) || (this.types == "mounth")) {
+            } else if ((this.types == "years" && this.age <= 3 && this.age >= 1) || (this.types == "mounth")) {
                 this.nourrisson = true
             } else {
                 this.nouveau = true
