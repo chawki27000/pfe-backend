@@ -18,13 +18,7 @@ var caseSchema = new Schema({
     taken_place: String,
     alone: Boolean,
     drugs: [{id : Schema.Types.ObjectId, quantity: Number}],
-    sign: [{types: String, gravity: Number, comment: String}],
-    state_child: String,
-    glasgow_score: {
-        type: Number,
-        min: 3,
-        max: 15
-    },
+    sign: [{types: String, gravity: Number}],
     diagnostic: String,
     createdAt: { type: Date, default: Date.now }
 

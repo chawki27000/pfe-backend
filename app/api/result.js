@@ -48,6 +48,7 @@ router.post('/insert', function(req, res, next) {
             ampl: req.body.ampl,
         },
     }
+
     // saving data
     const modelSave = new Model(params);
     modelSave.save((err, result) => {
@@ -64,7 +65,7 @@ router.post('/insert', function(req, res, next) {
 })
 
 router.get('/query/:id', function (req, res, next) {
-    Model.find({child: req.params.id}, function (err, result) {
+    Model.find({child: req.params.id},null,{sort:{'createdAt': -1}}, function (err, result) {
         if (err) {
             res.json({
                 'success': false
@@ -99,6 +100,7 @@ router.post('/update', function (req, res, next) {
         //params extraction and update the model
         result.feedback = req.body.feedback
         result.comment = req.body.comment
+        result.explanation = req.body.explanation
 
         // Save it
         result.save(function (err, user) {

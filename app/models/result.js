@@ -19,6 +19,7 @@ var resultSchema = new Schema({
     },
     feedback: String,
     comment: String,
+    explanation: String,
     createdAt: { type: Date, default: Date.now }
 });
 
