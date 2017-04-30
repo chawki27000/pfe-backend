@@ -15,7 +15,21 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/all', function(req, res, next) {
-    Child.find({}, function(err, result) {
+    Child.find({state: ''}, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
+
+router.get('/all/archive', function(req, res, next) {
+    Child.find({state: {$ne: ''}}, function(err, result) {
         if (err) {
             res.json({
                 'success': false
@@ -39,6 +53,21 @@ router.get('/query/:id', function(req, res, next) {
         res.json({
             'success': true,
             'data': result
+        })
+    })
+});
+
+router.post('/update', function(req, res, next) {
+    Child.findById(req.body.id, function (err, result) {
+        if (err) {
+            res.json({'success': false})
+        }
+        //params extraction and update the model.
+        result.state = req.body.state
+
+        // Save it
+        result.save(function (err, user) {
+            res.json({'success': true})
         })
     })
 });
