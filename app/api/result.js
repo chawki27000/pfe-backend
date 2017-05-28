@@ -4,6 +4,7 @@ var express = require('express'),
 
 
 const Model = require('../models/result');
+const Toxidrome = require('../models/toxidrome')
 
 module.exports = function(app) {
     app.use('/v1/result/', router);
@@ -107,4 +108,24 @@ router.post('/update', function (req, res, next) {
             res.json({'success': true})
         })
     })
+})
+
+router.get('/toxidrome/insert/', function (req, res) {
+    const modelSave = new Toxidrome({
+        name: '1234',
+        sign:  [
+            {name: 'ahem'},
+            {name: 'adshf'}
+        ]
+    })
+
+    modelSave.save((err, result) => {
+        if (err) {
+            res.json({'success': false})
+        }
+        res.json({
+            'success': true,
+            'id': result._id
+        })
+    });
 })

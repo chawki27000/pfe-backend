@@ -17,11 +17,11 @@ var caseSchema = new Schema({
     },
     taken_place: String,
     alone: Boolean,
-    drugs: [{id : Schema.Types.ObjectId, quantity: Number}],
+    drugs: [{id : Schema.Types.ObjectId, quantity: Number, dose: Number}],
     sign: [{types: String, gravity: Number}],
     diagnostic: String,
     createdAt: { type: Date, default: Date.now }
-
+    
 });
 
 module.exports = mongoose.model('Case', caseSchema);

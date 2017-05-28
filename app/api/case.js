@@ -55,7 +55,8 @@ router.post('/insert', function(req, res, next) {
     modelSave.diagnostic = params.diagnostic
     for (var i = 0; i < params.drugs.length; i++) {
         console.log(params.drugs[i]);
-        modelSave.drugs.push({id:params.drugs[i].id, quantity: params.drugs[i].val})
+        modelSave.drugs.push({id:params.drugs[i].id, quantity: params.drugs[i].val,
+                            dose: params.drugs[i].dose})
     }
     for (var i = 0; i < params.sign.length; i++) {
         modelSave.sign.push({types: params.sign[i].sign, gravity: params.sign[i].val})
