@@ -1,37 +1,19 @@
 var RuleEngine = require('node-rules');
-const rule = require('./paracetamol_rules');
+const rule_ibu = require('./ibuprofene_rules');
+const rule_asp = require('./aspirine_rules');
 
-// var fact = {
-//     "age": 2,
-//     "types": "mounth",
-//     "fc": 99
-// }
 
-var fact2 = {
-    "symptomatique_abnormal": true,
+// TODO : test ibuprofene et aspirine
+var fact_ibu = {
+    "dose" : 12000,
+    "poids": 50,
+    "duree": 1
 }
 
-var fact3 = {
-    "single": true,
-    "risk": true,
-    "dose_parac": 26,
-}
+var Ribu = new RuleEngine(rule_ibu.rules1)
 
-var R = new RuleEngine(rule.rules1)
-var R2 = new RuleEngine(rule.rules12)
-// var R3 = new RuleEngine(rule.rules3)
-
-R.execute(fact, function(result) {
-    console.log("Resulat 1 : "+result.result);
-})
-//
-// R2.execute(fact2, function(result) {
-//     console.log("Resulat 2 : "+result.result);
-// })
-
-R.execute(fact3, function(result) {
-    console.log("Resulat 3 : "+result.result);
-})
-R2.execute(fact2, function(result) {
-    console.log("Resulat 2 : "+result.result);
+Ribu.execute(fact_ibu, function(result) {
+    console.log("diag : "+result.diag);
+    console.log("treatment : "+result.treatment);
+    console.log("complementaire : "+result.complementaire);
 })
