@@ -120,3 +120,25 @@ router.post('/insert', function(req, res, next) {
         })
     })
 })
+
+router.post('/approve', function(req, res, next) {
+    console.log("ID : "+req.body.id);
+    console.log("approve : "+req.body.approve);
+    Model.find({child: req.body.id}, function (err, result) {
+        if (err) {
+            res.json({'success': false})
+        }
+        //params extraction and update the model.
+        // if(req.body.approve){
+        //     result.expert.approve = true
+        // } else {
+        //     result.expert.approve = false
+        //     result.expert.proposition = req.body.proposition
+        // }
+
+        // Save it
+        result.save(function (err, user) {
+            res.json({'success': true})
+        })
+    })
+})

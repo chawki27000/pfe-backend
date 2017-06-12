@@ -71,11 +71,13 @@ router.get('/query/:id', function (req, res, next) {
             res.json({
                 'success': false
             })
+        } else {
+            res.json({
+                'success': true,
+                'data': result
+            })
         }
-        res.json({
-            'success': true,
-            'data': result
-        })
+
     })
 })
 

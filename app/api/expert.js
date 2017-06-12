@@ -17,6 +17,7 @@ const hemoExpert = require('./hemodynamic');
 var RuleEngine = require('node-rules');
 const rule_ibu = require('../expert_system/ibuprofene_rules');
 const rule_asp = require('../expert_system/aspirine_rules');
+const rule_parac = require('../expert_system/paracetamol_rules_2');
 
 // Express Route
 module.exports = function(app) {
@@ -28,8 +29,6 @@ router.get('/', function (req, res, next) {
         'message': 'hello V1 API - Expert'
     });
 });
-
-
 
 router.post('/on/1', function (req, res, next) {
     //params extraction
@@ -108,7 +107,6 @@ router.post('/toxicity/', function (req, res, next) {
     // extraction des informations sur l'enfant
     Child.findOne({_id: child_id}, function (err, child) {
         if (err) return handleError(err)
-        console.log("POIDS : "+child.weight+", AGE : "+child.age.num+" "+child.age.types);
 
         // extraction des informations maladives sur l'enfant
         Case.findOne({child: child_id},{},{ sort: { 'createdAt' : -1 } }, function (err, result) {
@@ -166,6 +164,7 @@ router.post('/toxicity/expert', function (req, res, next) {
     var child_id = req.body.child_id
     var aspirine = req.body.aspirine
     var ibuprofene = req.body.ibuprofene
+    var paracetamol = req.body.paracetamol
 
     Child.findOne({_id: child_id}, function (err, child) {
         if (err) return handleError(err)
@@ -177,7 +176,7 @@ router.post('/toxicity/expert', function (req, res, next) {
             // Prepare fact
             var fact_ibu = {
                 "dose" : ibuprofene,
-                "poids": child.weight,
+                "poids": result.weight,
                 "duree": result.taken_hour.hour
             }
             var Ribu = new RuleEngine(rule_ibu.rules1)
@@ -186,17 +185,35 @@ router.post('/toxicity/expert', function (req, res, next) {
                 // Prepare fact
                 var fact_asp = {
                     "dose" : aspirine,
-                    "poids": child.weight,
+                    "poids": result.weight,
                     "duree": result.taken_hour.hour,
                     "vomi": false
                 }
                 var Rasp = new RuleEngine(rule_asp.rules1)
 
                 Rasp.execute(fact_asp, function(result2) {
-                    res.json({
-                        "ibuprofene": result1,
-                        "aspirine": result2
+                    // Prepare fact
+                    var fact_parac = {
+                        "dose" : paracetamol,
+                        "dose_inconnu" : false,
+                        "poids": result.weight,
+                        "duree": result.taken_hour.hour,
+                        "vomissement": false,
+                        "somnolence": false,
+                        "nausee": false,
+                        "douleur": false,
+                        "icm": false,
+                    }
+
+                    var Rparac = new RuleEngine(rule_parac.rules1)
+                    Rparac.execute(fact_parac, function(result3) {
+                        res.json({
+                            "ibuprofene": result1,
+                            "aspirine": result2,
+                            "paracetamol": result3,
+                        })
                     })
+
                 })
             })
 

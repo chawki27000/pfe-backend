@@ -20,8 +20,12 @@ var caseSchema = new Schema({
     drugs: [{id : Schema.Types.ObjectId, quantity: Number, dose: Number}],
     sign: [{types: String, gravity: Number}],
     diagnostic: String,
+    expert: {
+        approve: Boolean,
+        proposition: String
+    },
     createdAt: { type: Date, default: Date.now }
-    
+
 });
 
 module.exports = mongoose.model('Case', caseSchema);
