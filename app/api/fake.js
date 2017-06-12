@@ -5,6 +5,7 @@ var express = require('express'),
 var faker = require('faker');
 var request = require("request");
 
+const Toxidrome = require('../models/toxidrome')
 const Child = require('../models/child');
 const Case = require('../models/case');
 const Hemodynamic = require('../models/hemodynamic');
@@ -21,9 +22,45 @@ router.get('/', function(req, res, next) {
     })
 })
 
+var getToxidrome = function (signs) {
+    Toxidrome.find({}, function (err, result) {
+
+        var tab = []
+
+        for (var i = 0; i < result.length; i++) { // boucle sur la collection
+
+            var count = 0 // compteur
+
+            for (var j = 0; j < result[i].sign.length; j++) { // boucle sur les signes du toxidrome
+
+                for (var k = 0; k < signs.length; k++) { // boucle sur les signes de l'enfant
+
+                    if (signs[k].types == result[i].sign[j].name) {
+                        count++;
+                    }
+                }
+            }
+            // console.log("Toxidrome : "+result[i].name+", score : "+count/result[i].sign.length);
+            tab.push({"toxidrome": result[i].name, "score": count/result[i].sign.length})
+        }
+        tab.sort(function(a, b) {
+          return b.score - a.score
+        })
+        return tab[0].toxidrome
+    })
+}
+
 // 58beb17cec9e6a23e393c370
 router.get('/generate/:number', function(req, res, next) {
+
     var number = req.params.number
+    var tab1 = []
+    var sign = ['Coma', 'Convulsions', 'Myosis', 'Mydriase', 'Agitation', 'Hallucinations', 'Fièvre',
+    'Myoclonies', 'Tremblements', 'Dysarthrie', 'Confusion', 'Paralysie', 'Céphalées',
+    'Insomnie', 'Hyperréfléxie', 'Hypokaliémie', 'Palpitation', 'Bronchorrhée', 'Bronchospasme',
+    'Bloc auriculo-ventriculaire', 'QT long', 'Trouble de rythme', 'Insuffisance cardiaque', 'Vomissements', 'Diarrhées', 'Douleurs Abdominales', 'Constipation', 'Frisson', 'Rétention Urinaire', 'IRA', 'Insuffisance hépatique', 'Hypoglycémie',
+    'Hyperglycémie', 'Alcalose', 'Acidose', 'Hypokaliémie', 'Myosis', 'Somnolence', 'Ictère cutano muqueux'
+  ]
 
 
     for (var i = 0; i < number; i++) { // LOOP FOR DATA GENERATING
@@ -91,23 +128,17 @@ router.get('/generate/:number', function(req, res, next) {
 
         })
 
-
-
         // generate drugs toxications
-        var tab1 = []
+
         var num = faker.random.number({'min': 1, 'max': 16})
-        var sign = ['Coma', 'Convulsions', 'Myosis', 'Mydriase', 'Agitation', 'Hallucinations', 'Fièvre',
-        'Myoclonies', 'Tremblements', 'Dysarthrie', 'Confusion', 'Paralysie', 'Céphalées',
-        'Insomnie', 'Hyperréfléxie', 'Hypokaliémie', 'Palpitation', 'Bronchorrhée', 'Bronchospasme',
-        'Bloc auriculo-ventriculaire', 'QT long', 'Trouble de rythme', 'Insuffisance cardiaque', 'Vomissements', 'Diarrhées', 'Douleurs Abdominales', 'Constipation', 'Frisson', 'Rétention Urinaire', 'IRA', 'Insuffisance hépatique', 'Hypoglycémie',
-        'Hyperglycémie', 'Alcalose', 'Acidose', 'Hypokaliémie', 'Myosis', 'Somnolence', 'Ictère cutano muqueux'
-      ]
+        tab1 = []
         for (var i = 0; i < num; i++) {
             tab1.push({
                 types: faker.random.arrayElement(sign),
                 gravity: 0
             })
         }
+
         const caseSave = new Case({
             doctor: "58beb17cec9e6a23e393c370",
             child: result._id,
@@ -122,7 +153,8 @@ router.get('/generate/:number', function(req, res, next) {
                 quantity: faker.random.number({'min': 1, 'max': 10}),
                 dose : 500
             }],
-            sign: tab1
+            sign: tab1,
+            toxidrome : getToxidrome(tab1)
         })
 
         caseSave.save((err, result) => {

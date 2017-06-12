@@ -28,6 +28,34 @@ router.get('/all', function(req, res, next) {
     })
 });
 
+// Functions
+var getToxidrome = function (signs) {
+    Toxidrome.find({}, function (err, result) {
+
+        var tab = []
+
+        for (var i = 0; i < result.length; i++) { // boucle sur la collection
+
+            var count = 0 // compteur
+
+            for (var j = 0; j < result[i].sign.length; j++) { // boucle sur les signes du toxidrome
+
+                for (var k = 0; k < signs.length; k++) { // boucle sur les signes de l'enfant
+                    if (signs[k].sign == result[i].sign[j].name) {
+                        count++;
+                    }
+                }
+            }
+            // console.log("Toxidrome : "+result[i].name+", score : "+count/result[i].sign.length);
+            tab.push({"toxidrome": result[i].name, "score": count/result[i].sign.length})
+        }
+        tab.sort(function(a, b) {
+          return b.score - a.score
+        })
+        return tab[0]
+    })
+}
+
 router.post('/insert', function(req, res, next) {
     //params extraction
     const params = {
@@ -61,6 +89,9 @@ router.post('/insert', function(req, res, next) {
     for (var i = 0; i < params.sign.length; i++) {
         modelSave.sign.push({types: params.sign[i].sign, gravity: params.sign[i].val})
     }
+
+    // selection du toxidrome
+    modelSave.toxidrome = getToxidrome(params.sign)
 
     modelSave.save((err, result) => {
         if (err) {

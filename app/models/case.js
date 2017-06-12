@@ -19,6 +19,7 @@ var caseSchema = new Schema({
     alone: Boolean,
     drugs: [{id : Schema.Types.ObjectId, quantity: Number, dose: Number}],
     sign: [{types: String, gravity: Number}],
+    toxidrome: String,
     diagnostic: String,
     expert: {
         approve: Boolean,
