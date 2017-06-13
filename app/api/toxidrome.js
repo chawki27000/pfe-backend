@@ -21,6 +21,33 @@ router.get('/', function(req, res, next) {
     })
 })
 
+var getToxidrome = function (signs) {
+    Toxidrome.find({}, function (err, result) {
+
+        var tab = []
+
+        for (var i = 0; i < result.length; i++) { // boucle sur la collection
+
+            var count = 0 // compteur
+
+            for (var j = 0; j < result[i].sign.length; j++) { // boucle sur les signes du toxidrome
+
+                for (var k = 0; k < signs.length; k++) { // boucle sur les signes de l'enfant
+                    if (signs[k].sign == result[i].sign[j].name) {
+                        count++;
+                    }
+                }
+            }
+            // console.log("Toxidrome : "+result[i].name+", score : "+count/result[i].sign.length);
+            tab.push({"toxidrome": result[i].name, "score": count/result[i].sign.length})
+        }
+        tab.sort(function(a, b) {
+          return b.score - a.score
+        })
+        return tab[0]
+    })
+}
+
 
 
 // var getCondidat = function(toxi, callback) {
