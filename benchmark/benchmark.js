@@ -1,6 +1,4 @@
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const _ = require('lodash');
 const platform = require('platform');
@@ -18,15 +16,6 @@ const Hemodynamic = require('../models/hemodynamic');
 const Pleuro = require('../models/pulmonaire');
 const Neurologic = require('../models/neurologic');
 
-module.exports = function(app) {
-    app.use('/v1/toxidrome/', router);
-}
-
-router.get('/', function(req, res, next) {
-    res.json({
-        'message': 'hello V1 API - Toxidrome'
-    })
-})
 
 var getToxidrome = function(signs, callback) {
     Toxidrome.find({}, function(err, result) {
@@ -76,30 +65,17 @@ var distanceEuclidienne = function(num1, num2) {
     return Math.sqrt(Math.pow(num1 - num2, 2))
 }
 
-router.post('/get', function(req, res, next) {
 
-    console.log("SIGNES SAISIES");
-    for (var i = 0; i < req.body.sign.length; i++) {
-        console.log(req.body.sign[i].sign);
-    }
+var toxidromeFunct =  function() {
 
-    console.log("TOXIDROMES ASSOCIES");
-    getToxidrome(req.body.sign, function(tab) {
-        console.log(tab);
-        res.send(tab)
-    })
-})
-
-router.post('/compare', function(req, res, next) {
-
-    var child_id = req.body.child
+    var child_id = "5940b5feb72bc7274259f6fa" // new case
 
     let myPromise = new Promise((resolve, reject) => {
         let sim = [];
 
         // Selection des cas condidat
         Case.find({
-            toxidrome: req.body.toxidrome
+            toxidrome: "Stabilisant de membrane"
         }, function(err, cas) {
             let cc = 0
             for (var i = 0; i < cas.length; i++) { // boucle sur les condidats potentiels
@@ -255,9 +231,9 @@ router.post('/compare', function(req, res, next) {
         sim.sort(function(a, b) {
             return b.sim - a.sim
         })
-        res.send(JSON.stringify(sim));
+        console.log(sim);
     })
 
 
 
-})
+}

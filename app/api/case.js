@@ -28,6 +28,20 @@ router.get('/all', function(req, res, next) {
     })
 });
 
+router.post('/find/', function(req, res, next) {
+    Model.find({'child': req.body.child}, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
+
 // Functions
 var getToxidrome = function (signs) {
     Toxidrome.find({}, function (err, result) {

@@ -57,7 +57,6 @@ var getToxidrome = function (signs, callback) {
 router.get('/generate/:number', function(req, res, next) {
 
     var number = req.params.number
-    var tab1 = []
     var sign = ['Coma', 'Convulsions', 'Myosis', 'Mydriase', 'Agitation', 'Hallucinations', 'Fièvre',
     'Myoclonies', 'Tremblements', 'Dysarthrie', 'Confusion', 'Paralysie', 'Céphalées',
     'Insomnie', 'Hyperréfléxie', 'Hypokaliémie', 'Palpitation', 'Bronchorrhée', 'Bronchospasme',
@@ -133,37 +132,14 @@ router.get('/generate/:number', function(req, res, next) {
 
         // generate drugs toxications
 
-        var num = faker.random.number({'min': 1, 'max': 16})
-        tab1 = []
+        let num = faker.random.number({'min': 1, 'max': 16})
+        let tab1 = []
         for (var i = 0; i < num; i++) {
             tab1.push({
                 types: faker.random.arrayElement(sign),
                 gravity: 0
             })
         }
-
-        // const caseSave = new Case({
-        //     doctor: "58beb17cec9e6a23e393c370",
-        //     child: result._id,
-        //     taken_hour: {
-        //         hour: faker.random.number({'min': 0, 'max': 72}),
-        //         minute: faker.random.number({'min': 0, 'max': 59}),
-        //     },
-        //     taken_place: faker.random.arrayElement(['cuisine', 'chambre', 'salle de bain']),
-        //     alone: faker.random.boolean(),
-        //     drugs: [{
-        //         id: faker.random.arrayElement(['592a0941a147b227e26df364', '592a09f7a147b227e26df369', '592a0a7ba147b227e26df36d']),
-        //         quantity: faker.random.number({'min': 1, 'max': 10}),
-        //         dose : 500
-        //     }],
-        //     sign: tab1,
-        //     // toxidrome : function() {
-        //     //     return getToxidrome(tab1, function (toxi) {
-        //     //         return toxi
-        //     //     })
-        //     // }
-        //     toxidrome : 'hahaha'
-        // })
 
 
         getToxidrome(tab1, function (toxi) {

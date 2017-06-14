@@ -64,6 +64,20 @@ router.get('/query/:id', function(req, res, next) {
     })
 });
 
+router.get('/query/cod/:id', function(req, res, next) {
+    Model.find({child: req.params.id}, function(err, result) {
+        if (err) {
+            res.json({
+                'success': false
+            })
+        }
+        res.json({
+            'success': true,
+            'data': result
+        })
+    })
+});
+
 router.get('/all', function(req, res, next) {
     Model.find({}, function(err, result) {
         if (err) {
