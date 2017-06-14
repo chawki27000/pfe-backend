@@ -4,6 +4,7 @@ var express = require('express'),
 
 var faker = require('faker');
 var request = require("request");
+var promise = require('promise');
 
 const Toxidrome = require('../models/toxidrome')
 const Child = require('../models/child');
@@ -22,7 +23,7 @@ router.get('/', function(req, res, next) {
     })
 })
 
-var getToxidrome = function (signs) {
+var getToxidrome = function (signs, callback) {
     Toxidrome.find({}, function (err, result) {
 
         var tab = []
@@ -46,8 +47,10 @@ var getToxidrome = function (signs) {
         tab.sort(function(a, b) {
           return b.score - a.score
         })
-        return tab[0].toxidrome
+        callback(tab[0].toxidrome)
+
     })
+
 }
 
 // 58beb17cec9e6a23e393c370
@@ -139,27 +142,55 @@ router.get('/generate/:number', function(req, res, next) {
             })
         }
 
-        const caseSave = new Case({
-            doctor: "58beb17cec9e6a23e393c370",
-            child: result._id,
-            taken_hour: {
-                hour: faker.random.number({'min': 0, 'max': 72}),
-                minute: faker.random.number({'min': 0, 'max': 59}),
-            },
-            taken_place: faker.random.arrayElement(['cuisine', 'chambre', 'salle de bain']),
-            alone: faker.random.boolean(),
-            drugs: [{
-                id: faker.random.arrayElement(['592a0941a147b227e26df364', '592a09f7a147b227e26df369', '592a0a7ba147b227e26df36d']),
-                quantity: faker.random.number({'min': 1, 'max': 10}),
-                dose : 500
-            }],
-            sign: tab1,
-            toxidrome : getToxidrome(tab1)
-        })
+        // const caseSave = new Case({
+        //     doctor: "58beb17cec9e6a23e393c370",
+        //     child: result._id,
+        //     taken_hour: {
+        //         hour: faker.random.number({'min': 0, 'max': 72}),
+        //         minute: faker.random.number({'min': 0, 'max': 59}),
+        //     },
+        //     taken_place: faker.random.arrayElement(['cuisine', 'chambre', 'salle de bain']),
+        //     alone: faker.random.boolean(),
+        //     drugs: [{
+        //         id: faker.random.arrayElement(['592a0941a147b227e26df364', '592a09f7a147b227e26df369', '592a0a7ba147b227e26df36d']),
+        //         quantity: faker.random.number({'min': 1, 'max': 10}),
+        //         dose : 500
+        //     }],
+        //     sign: tab1,
+        //     // toxidrome : function() {
+        //     //     return getToxidrome(tab1, function (toxi) {
+        //     //         return toxi
+        //     //     })
+        //     // }
+        //     toxidrome : 'hahaha'
+        // })
 
-        caseSave.save((err, result) => {
 
-        })
+        getToxidrome(tab1, function (toxi) {
+
+            const caseSave = new Case({
+                doctor: "58beb17cec9e6a23e393c370",
+                child: result._id,
+                taken_hour: {
+                    hour: faker.random.number({'min': 0, 'max': 72}),
+                    minute: faker.random.number({'min': 0, 'max': 59}),
+                },
+                taken_place: faker.random.arrayElement(['cuisine', 'chambre', 'salle de bain']),
+                alone: faker.random.boolean(),
+                drugs: [{
+                    id: faker.random.arrayElement(['592a0941a147b227e26df364', '592a09f7a147b227e26df369', '592a0a7ba147b227e26df36d']),
+                    quantity: faker.random.number({'min': 1, 'max': 10}),
+                    dose : 500
+                }],
+                sign: tab1,
+                toxidrome : toxi
+            })
+
+            caseSave.save((err, result) => {
+
+            })
+        });
+
     });
     }
     res.end()
