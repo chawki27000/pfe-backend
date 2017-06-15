@@ -99,7 +99,7 @@ router.post('/compare', function(req, res, next) {
 
         // Selection des cas condidat
         Case.find({
-            toxidrome: req.body.toxidrome
+            // toxidrome: req.body.toxidrome
         }, function(err, cas) {
             let cc = 0
             for (var i = 0; i < cas.length; i++) { // boucle sur les condidats potentiels
@@ -258,6 +258,26 @@ router.post('/compare', function(req, res, next) {
         res.send(JSON.stringify(sim));
     })
 
-
+    // suite.add('AsyncFunc', function (defered) {
+    //
+    //         myPromise.then(function(result, number) {
+    //
+    //             defered.resolve();
+    //         });
+    //
+    // 	}, {
+    // 		'defer': true
+    // 	})
+    // 	// add listeners
+    // 	.on('cycle', function (event) {
+    // 		console.log(String(event.target));
+    // 	})
+    // 	.on('complete', function () {
+    // 		console.log(this[0].times);
+    // 	})
+    // 	// run async
+    // 	.run({
+    // 		'async': true
+    // 	});
 
 })
